@@ -6,7 +6,7 @@ class Question extends React.Component {
 
     constructor(props) {
         super(props);
-        this.myNumber = this.props.params.match.number;
+        this.myNumber = this.props.match.params.number;
         console.log(this.myNumber);
         this.state = {
             rating: 0,
@@ -52,4 +52,4 @@ class Question extends React.Component {
 
 }
 
-export default withRouter (Question);
+export default withRouter(Question);

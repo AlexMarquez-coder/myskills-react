@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 
 import Intro from "../Intro/Intro";
 import Question from "../Question/Question";
@@ -15,10 +15,10 @@ const App = () => {
     })
     return(
         <>
-            <Routes>
-                <Route path="/" element={<Intro/>}/>
-                <Route path="/vraag/:number" element={<Question/>}/>
-            </Routes>
+            <switch>
+                <Route path="/vraag/:number" component={Question}/>
+                <Route path="/" component={Intro}/>
+            </switch>
         </>
     );
 }
