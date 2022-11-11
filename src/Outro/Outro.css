@@ -1,13 +1,11 @@
-.intro__button{
-    width: 20rem;
-    height: 10rem;
+.outro{
+    width: 60rem;
+    height: 40rem;
     background: #eee;
     border-radius: 3rem;
     box-shadow: inset 0 -0.5rem 1rem rgba(0, 18, 83, 0.3);
+    gap: 1rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    text-decoration: none;
-    color: rgb(0, 18, 83);
-    font-size: 5rem;
 }

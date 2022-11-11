@@ -1,40 +1,44 @@
 import React from "react";
-import {withRouter} from "react-router";
+import { withRouter, Link } from "react-router-dom";
 import "./Question.css";
 
 class Question extends React.Component {
 
     constructor(props) {
         super(props);
-        this.myNumber = this.props.match.params.number;
-        console.log(this.myNumber);
         this.state = {
             rating: 0,
         }
     }
 
-    componentDidMount(){
-        this.setState({rating: this.props.rating})
+    componentDidMount() {
+        this.setState({ rating: this.props.rating })
     }
-    
-   onStarClicked = (rating) => {
-       this.setState({
-        rating: rating,
-       })
+
+    onStarClicked = (rating) => {
+        this.setState({
+            rating: rating,
+        }, () => {
+            this.props.onRate(this.state.rating, this.props.number);
+        })
     }
 
     render() {
-        let starsArray = [];
-        for (let i = 1; i <= this.state.rating; i++){
-           starsArray.push (<i onClick={() => this.onStarClicked (i)} className="question__star fa-solid fa-star"></i>);
+        let nextButtonToBeRendered = <Link className="question__button" to={this.props.next}>Volgende</Link>
+        if (this.props.last === true) {
+            nextButtonToBeRendered = <Link onClick={this.props.onLast} className="question__button" to={this.props.next}>volgende</Link>
         }
-        for(let i =this.state.rating + 1; i <= 5; i++){
-            starsArray.push (<i onClick={() => this.onStarClicked (i)} className="question__star fa-regular fa-star"></i>);
+        let starsArray = [];
+        for (let i = 1; i <= this.state.rating; i++) {
+            starsArray.push(<i key={i} onClick={() => this.onStarClicked(i)} className="question__star fa-solid fa-star"></i>);
+        }
+        for (let i = this.state.rating + 1; i <= 5; i++) {
+            starsArray.push(<i key={i} onClick={() => this.onStarClicked(i)} className="question__star fa-regular fa-star"></i>);
         }
         return (
             <article className="question">
                 <header className="question__header">
-                    <h2 class="question__heading">#{this.props.number} {this.props.question}</h2>
+                    <h2 className="question__heading">#{this.props.number} {this.props.question}</h2>
                 </header>
                 <section className="question__section">
                     <p className="question__text">(1 Ster staat voor zéér slecht, 5 sterren staan voor zéér goed)</p>
@@ -43,8 +47,8 @@ class Question extends React.Component {
                     </div>
                 </section>
                 <footer className="question__footer">
-                    <button className="question__button">vorige</button>
-                    <button className="question__button">volgende</button>
+                    <Link className="question__button" to={this.props.previous}>vorige</Link>
+                    {nextButtonToBeRendered}
                 </footer>
             </article>
         )
